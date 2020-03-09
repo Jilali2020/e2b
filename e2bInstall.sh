@@ -16,5 +16,5 @@ wget -q https://raw.githubusercontent.com/Jilali2020/e2b/master/e2b.sh -O /tmp/i
 chmod 777 /tmp/install.sh
 /tmp/install.sh
 
-rm ./install.sh
+rm ./e2bInstall.sh
 exit
