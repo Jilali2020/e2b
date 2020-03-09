@@ -1,5 +1,3 @@
-clear
-
 echo ""
 echo "> Even geduld  ... licht update"
 opkg update  &>/dev/null
