@@ -193,6 +193,9 @@ if opkg list_installed python-argpars* | grep "*argparse*" &>/dev/null
 		echo -e "2\e[33m|\e[0m E2B + Plugin .   \e[33m|\e[0m"
 		echo -e "9\e[33m|\e[0m Script stoppen\e[33m   |\e[0m"
 		read -p "Kies:" menu
+		if [ $menu -eq 9 ]; then
+			exit;
+		fi
 		if [ $menu -eq 2 ]; then
 			wget -O /tmp/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk "https://github.com/su1s/e2m3u2bouquet/releases/download/v0.8.5/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk" && opkg install --force-reinstall /tmp/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk
 			rm -rf /etc/enigma2/e2m3u2bouquet
