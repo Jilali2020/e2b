@@ -17,4 +17,5 @@ chmod 777 /tmp/install.sh
 /tmp/install.sh
 
 rm ./e2bInstall.sh
+rm ./install.sh
 exit
