@@ -256,7 +256,11 @@ if opkg list_installed python-argpars* | grep "*argparse*" &>/dev/null
 			echo -e "\e[0m"
 			echo -e "\e[0m"
 			echo -e "\e[1mCONTROLE CHECK!!\e[0m"
-			printf '%s\n'  "Provider Url= \e[1m $url \e[0m" "Provider Gebruikersnaam= \e[1m$username\e[0m" "Provider Paswoord= \e[1m$password\e[0m" "Prefix Bouquets= \e[1m$voorvoegsel\e[0m"
+			echo -e "\e[0mProvider Url= \e[1m $url\e[0m"
+			echo -e "Provider Gebruikersnaam= \e[1m$username\e[0m"
+			echo -e "Provider Paswoord= \e[1m$password\e[0m"
+			echo -e "Prefix Bouquets= \e[1m$voorvoegsel\e[0m"
+			 
 			echo -e "\e[0m"
 			echo -e "\e[1mMAAK HIERONDER UW KEUZE\e[0m"
 			echo -e "1\e[33m|\e[0m Alles is juist     \e[33m|\e[0m"
