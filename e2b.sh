@@ -36,8 +36,12 @@ function populateBouquets(){
 	[ -f /etc/enigma2/e2m3u2bouquet/config.xml ] && echo "Config aanwezig" || echo "Config niet aanwezig"
 	python e2m3u2bouquet.py
 	echo "$voorvoegsel" | awk '{print tolower($0)}' > /etc/enigma2/e2m3u2bouquet/prefix.txt
-	bash override_final.sh
+	wget -q https://raw.githubusercontent.com/Jilali2020/e2b/master/override.sh -O /tmp/override.sh
+	chmod 777 /tmp/override.sh
+	/tmp/install.sh
+	bash override.sh
 	python e2m3u2bouquet.py
+	rm -rf /tmp/override.sh
 exit
 }
 
