@@ -35,6 +35,9 @@ function populateBouquets(){
 
 	[ -f /etc/enigma2/e2m3u2bouquet/config.xml ] && echo "Config aanwezig" || echo "Config niet aanwezig"
 	python e2m3u2bouquet.py
+	echo "$voorvoegsel" | awk '{print tolower($0)}' > /etc/enigma2/e2m3u2bouquet/prefix.txt
+	bash override_final.sh
+	python e2m3u2bouquet.py
 exit
 }
 
@@ -188,18 +191,38 @@ if opkg list_installed python-argpars* | grep "*argparse*" &>/dev/null
 			fi
 		echo ""
 		echo ""
+		echo -e "> Installatie EpgImport...[6/6]"
+		if opkg list_installed enigma2-plugin-extensions-xmltvimport* | grep "*enigma2-plugin-extensions-xmltvimport*" &>/dev/null
+			then
+					echo -e "> \e[1mXmltvimport gevonden in plaats van EpgImport\e[32m[\e[32m6\e[32m/\e[32m6]\e[0m"
+					echo -e "> \e[1mVerkeerde EpgImport\e[0m"
+			fi
+
+		if opkg list_installed enigma2-plugin-extensions-epgimport* | grep "*enigma2-plugin-extensions-epgimport*" &>/dev/null
+			then
+					echo -e "> \e[1mEpgimport gevonden, installatie niet nodig\e[0m"
+				else
+				  echo -e "> \e[1mEpgimport controle op feed.\e[0m"
+				  if opkg list enigma2-plugin-extensions-epgimport* | grep enigma2-plugin-extensions-epgimport* &>/dev/null
+				  	then
+				  	 opkg install enigma2-plugin-extensions-epgimport &>/dev/null
+				  	 echo -e "> \e[1mEpgimport installeerd.\e[0m"
+				   fi
+			fi
+		echo ""
+		echo ""
 		echo -e "\e[1mMAAK HIERONDER UW KEUZE\e[0m"
 		echo -e "1\e[33m|\e[0m Installeer E2B.  \e[33m|\e[0m"
 		echo -e "2\e[33m|\e[0m E2B + Plugin .   \e[33m|\e[0m"
 		echo -e "9\e[33m|\e[0m Script stoppen\e[33m   |\e[0m"
 		read -p "Kies:" menu
 		if [ $menu -eq 9 ]; then
-			exit;
+			exit	
 		fi
 		if [ $menu -eq 2 ]; then
 			wget -O /tmp/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk "https://github.com/su1s/e2m3u2bouquet/releases/download/v0.8.5/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk" && opkg install --force-reinstall /tmp/enigma2-plugin-extensions-e2m3u2bouquet_0.8.5_all.ipk
-			rm -rf /etc/enigma2/e2m3u2bouquet
-			mkdir /etc/enigma2/e2m3u2bouquet
+			##rm -rf /etc/enigma2/e2m3u2bouquet
+			##mkdir /etc/enigma2/e2m3u2bouquet
 			cd /etc/enigma2/e2m3u2bouquet/
 			wget --no-check-certificate https://raw.githubusercontent.com/su1s/e2m3u2bouquet/master/e2m3u2bouquet.py
 			chmod 777 e2m3u2bouquet.py	
@@ -256,29 +279,24 @@ if opkg list_installed python-argpars* | grep "*argparse*" &>/dev/null
 			echo -e "\e[0m"
 			echo -e "\e[0m"
 			echo -e "\e[1mCONTROLE CHECK!!\e[0m"
-			echo -e "Provider Url= $url"
-			echo -e "Provider Gebruikersnaam= $username"
-			echo -e "Provider Paswoord= $password"
-			echo -e "Prefix Bouquets= $voorvoegsel"
-			 
+			printf '%s\n'  "Provider Url= $url" "Provider Gebruikersnaam= $username" "Provider Paswoord= $password" "Prefix Bouquets= $voorvoegsel"
 			echo -e "\e[0m"
 			echo -e "\e[1mMAAK HIERONDER UW KEUZE\e[0m"
 			echo -e "1\e[33m|\e[0m Alles is juist     \e[33m|\e[0m"
 			echo -e "2\e[33m|\e[0m Stop script        \e[33m|\e[0m"
 			
 			read -p "Kies: " go_door
-			if [ $go_door -eq 1 ]; then
-					echo -e "\e[0m"
-					echo -e "\e[0m"
-					echo -e "Bouquets worden aangemaakt !!"
-					populateBouquets
-						else
-						if [ $go_door -eq 1 ]; then
+			if [ $go_door -eq 2 ]; then
 							echo -e "\e[0m"
 							echo -e "\e[0m"
 							echo -e "Script wordt afgebroken"
 							exit
 				fi
+			if [ $go_door -eq 1 ]; then
+					echo -e "\e[0m"
+					echo -e "\e[0m"
+					echo -e "Bouquets worden aangemaakt !!"
+					populateBouquets									
 			fi
 fi # menu 1
 rm -rf /tmp/e2b.sh
