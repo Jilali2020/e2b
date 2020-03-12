@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function printArt(){
+		echo -e "\e[32m     ____.__.__      \e[97m   .__  .__          ______\e[31m_______________________"
+		echo -e "\e[32m    |    |__|  | ____\e[97m_  |  | |__|         \_   _\e[31m____/\_____  \______   \""
+		echo -e "\e[32m    |    |  |  | \__ \e[97m \ |  | |  |  ______  |    \e[31m__)_  /  ____/|    |  _/"
+		echo -e "\e[32m/\__|    |  |  |__/ _\e[97m_ \|  |_|  | /_____/  |    \e[31m    \/       \|    |   \""
+		echo -e "\e[32m\________|__|____(___\e[97m_  /____/__|         /_____\e[31m__  /\_______ \______  /"
+		echo -e "                      \e[97m\/                         \e[31m \/         \/      \/ \e[0m"
+		echo -e "\e[0m"
+		echo -e "\e[0m"
+	
+}
+clear
+printArt
 rm -f Left1.txt
 rm -f Right.txt
 rm -f NewXMLFile.xml
@@ -59,3 +72,4 @@ sed -i '\%<categories>%,\%</categories>%c\ '"$customtext"'' $prefix-sort-overrid
 
 rm Left1.txt
 rm Right.txt
+rm /etc/enigma2/e2m3u2bouquet/prefix.txt
