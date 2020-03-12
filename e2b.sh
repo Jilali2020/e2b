@@ -38,7 +38,7 @@ function populateBouquets(){
 	echo "$voorvoegsel" | awk '{print tolower($0)}' > /etc/enigma2/e2m3u2bouquet/prefix.txt
 	wget -q https://raw.githubusercontent.com/Jilali2020/e2b/master/override.sh -O /tmp/override.sh
 	chmod 777 /tmp/override.sh
-	/tmp/install.sh
+	
 	bash override.sh
 	python e2m3u2bouquet.py
 	rm -rf /tmp/override.sh
