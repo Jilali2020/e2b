@@ -13,12 +13,13 @@ function printArt(){
 }
 clear
 printArt
-rm -f Left1.txt
-rm -f Right.txt
-rm -f NewXMLFile.xml
-rm -f New-ott-sort.xml
+rm -f /etc/enigma2/e2m3u2bouquet/Left1.txt
+rm -f /etc/enigma2/e2m3u2bouquet/Right.txt
+rm -f /etc/enigma2/e2m3u2bouquet/NewXMLFile.xml
+rm -f /etc/enigma2/e2m3u2bouquet/New-ott-sort.xml
 prefix=$(cat /etc/enigma2/e2m3u2bouquet/prefix.txt)
-sed -rn 's/.*<category name="([^"]*)".*/\1/p' $prefix-sort-current.xml > Left.txt
+cd /etc/enigma2/e2m3u2bouquet/
+sed -rn 's/.*<category name="([^"]*)".*/\1/p' $prefix-sort-current.xml > /etc/enigma2/e2m3u2bouquet/Left.txt
 
 while IFS= read -r line; do
     count=$(($count+1))	
@@ -70,6 +71,6 @@ customtext+="</categories>\\"
 
 sed -i '\%<categories>%,\%</categories>%c\ '"$customtext"'' $prefix-sort-override.xml
 
-rm Left1.txt
-rm Right.txt
+rm /etc/enigma2/e2m3u2bouquet/Left1.txt
+rm /etc/enigma2/e2m3u2bouquet/Right.txt
 rm /etc/enigma2/e2m3u2bouquet/prefix.txt
