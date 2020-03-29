@@ -35,7 +35,7 @@ done < Left1.txt
 
 
 read -p "Sorteer door nummer in te geven of druk 0 voor bewerken: " prompt
-while [ 0 != "$prompt" ] && [ "$promt" <= "$count" ]; do
+while [ 0 != "$prompt" ] && [ "$promt" <= $count ]; do
   count1=$(($count1+1))	
   string=$(grep "^$prompt-" Left1.txt)
   removestring="$prompt-"
